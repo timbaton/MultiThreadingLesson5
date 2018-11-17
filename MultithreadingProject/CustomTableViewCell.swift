@@ -30,7 +30,7 @@ class CustomTableViewCell: UITableViewCell {
     /// Метод вызывающийся при создания ячейки для её заполнения
     ///
     /// - Parameter post: объект класса Post из коллекции
-    func configureCell(post: Post, index: Int, delegate: CustomCellDelegate) {
+    func configureCell(post: PostModel, index: Int, delegate: CustomCellDelegate) {
         ivAvatar.image = post.authorAvatar
         tvDate.text = post.postDate
         tvName.text = post.authorName

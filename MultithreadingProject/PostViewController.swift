@@ -12,7 +12,7 @@ class PostViewController: UIViewController {
 
     @IBOutlet weak var ivPostImage: UIImageView!
     @IBOutlet weak var tvPostText: UILabel!
-    var post: Post!
+    var post: PostModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()

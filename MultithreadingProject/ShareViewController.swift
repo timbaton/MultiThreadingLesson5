@@ -12,7 +12,7 @@ class ShareViewController: UIViewController {
     
     @IBOutlet weak var tvSharedText: UILabel!
     
-    var post: Post!
+    var post: PostModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()

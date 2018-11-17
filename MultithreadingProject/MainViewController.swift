@@ -8,14 +8,6 @@
 
 import UIKit
 
-struct Post {
-    var authorAvatar: UIImage
-    var postImage: UIImage
-    var authorName: String
-    var postDate: String
-    var postText: String
-}
-
 //MARK: - working with table
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate {
 
@@ -25,25 +17,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     fileprivate let cellIdentifier = "cell"
     
     /// массив постов
-    var postsArray = [Post]()
+    var postsArray = [PostModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         ///заполняем массив постами
-        postsArray.append(Post(authorAvatar: #imageLiteral(resourceName: "iv1"), postImage: #imageLiteral(resourceName: "iv2"), authorName: "Timur Badretdinov", postDate: "02.04.1998", postText: "Although these classes actually can support the display of arbitrary amounts of text, labels and text fields are intended to be used for relatively small amounts of text, typically a single line. Text views, on the other hand, are meant to display large amounts of text."))
-        postsArray.append(Post(authorAvatar: #imageLiteral(resourceName: "iv1"), postImage: #imageLiteral(resourceName: "iv3"), authorName: "Timur Badretdinov", postDate: "02.04.1998", postText: "Use Text Objects to Display Text Content"))
-        postsArray.append(Post(authorAvatar: #imageLiteral(resourceName: "iv1"), postImage: #imageLiteral(resourceName: "iv4"), authorName: "Timur Badretdinov", postDate: "02.04.1998", postText: "Although these classes actually can support the display of arbitrary amounts of text, labels and text fields are intended to be used for relatively small amounts of text, typically a single line. Text views, on the other hand, are meant to display large amounts of text.Text view objects, created from the UITextView class, display text formatted into paragraphs, columns, and pages, with all the characteristics of fine typesetting, such as kerning, ligatures, sophisticated line-breaking, and justification. These typographic services are supplied to UITextView through an underlying technology called Text Kit, a powerful layout engine that is both easy to use and extensible. See Using Text Kit to Draw and Manage Text for more information about Text Kit.Figure 1-1 shows examples of the primary text objects as they appear on screen. The image on the left shows several different styles of text fields while the image on the right shows a single text view. The callouts displayed on the background are UILabel objects embedded inside the table cells used to display the different views. (These examples were taken from the UIKit Catalog (iOS): Creating and Customizing UIKit Controls sample app, which demonstrates many of the views and controls available in UIKit.)"))
-        postsArray.append(Post(authorAvatar: #imageLiteral(resourceName: "iv1"), postImage: #imageLiteral(resourceName: "iv5"), authorName: "Timur Badretdinov", postDate: "02.04.1998", postText: "Use Web Views to Display Web Content"))
-        postsArray.append(Post(authorAvatar: #imageLiteral(resourceName: "iv1"), postImage: #imageLiteral(resourceName: "iv5"), authorName: "Timur Badretdinov", postDate: "02.04.1998", postText: ""))
-        postsArray.append(Post(authorAvatar: #imageLiteral(resourceName: "iv1"), postImage: #imageLiteral(resourceName: "iv6"), authorName: "Timur Badretdinov", postDate: "02.04.1998", postText: ""))
-        postsArray.append(Post(authorAvatar: #imageLiteral(resourceName: "iv1"), postImage: #imageLiteral(resourceName: "iv3"), authorName: "Timur Badretdinov", postDate: "02.04.1998", postText: ""))
-        postsArray.append(Post(authorAvatar: #imageLiteral(resourceName: "iv1"), postImage: #imageLiteral(resourceName: "iv1"), authorName: "Timur Badretdinov", postDate: "02.04.1998", postText: ""))
-        postsArray.append(Post(authorAvatar: #imageLiteral(resourceName: "iv1"), postImage: #imageLiteral(resourceName: "iv4"), authorName: "Timur Badretdinov", postDate: "02.04.1998", postText: ""))
-        postsArray.append(Post(authorAvatar: #imageLiteral(resourceName: "iv1"), postImage: #imageLiteral(resourceName: "iv6"), authorName: "Timur Badretdinov", postDate: "02.04.1998", postText: ""))
-        postsArray.append(Post(authorAvatar: #imageLiteral(resourceName: "iv1"), postImage: #imageLiteral(resourceName: "iv6"), authorName: "Timur Badretdinov", postDate: "02.04.1998", postText: ""))
-        postsArray.append(Post(authorAvatar: #imageLiteral(resourceName: "iv1"), postImage: #imageLiteral(resourceName: "iv3"), authorName: "Timur Badretdinov", postDate: "02.04.1998", postText: ""))
-        
+       postsArray = DataManager.sharedInstance.postsArray
         /// Делаем размер ячейки динамичным
         tableView.estimatedRowHeight = 400
         /// Добавляю рефрешер в таблице
@@ -109,6 +89,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     ///
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "detailSegue", sender: postsArray[indexPath.row])
+        
     }
     
     /// Обработка нажатия на шэринг кнопку
@@ -122,12 +103,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     ///
     /// - Parameters:
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "detailSegue", let post = sender as? Post {
+        if segue.identifier == "detailSegue", let post = sender as? PostModel {
             let destinationController = segue.destination as! PostViewController
             destinationController.post = post
         }
         
-        if segue.identifier == "shareSegue", let post = sender as? Post {
+        if segue.identifier == "shareSegue", let post = sender as? PostModel {
             let destinationController = segue.destination as! ShareViewController
             destinationController.post = post
         }
