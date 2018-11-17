@@ -19,16 +19,22 @@ class DataManager: PostDataProtocol  {
     
     
     // MARK: - Operation queues
-    private lazy var searchOperationQueue: OperationQueue = {
+    private lazy var getPostOperationQueue: OperationQueue = {
         let queue = OperationQueue()
-        queue.name = "Search operation queue"
+        queue.name = "Search queue"
         
         return queue
     }()
     
     private lazy var addOperationQueue: OperationQueue = {
         let queue = OperationQueue()
-        queue.name = "Add operation queue"
+        queue.name = "Add post queue"
+        return queue
+    }()
+    
+    private lazy var getAllPostsOperationQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.name = "Get all posts queue"
         return queue
     }()
 
@@ -38,7 +44,7 @@ class DataManager: PostDataProtocol  {
     }
     
     func getPostAsync(by id: Int, completionBlock: @escaping (PostModel?) -> Void) {
-        searchOperationQueue.addOperation{ [weak self] in
+        getPostOperationQueue.addOperation{ [weak self] in
             guard let strongSelf = self else { return }
             completionBlock(strongSelf.postsArray.filter{ model in model.id == id}.first)
         }
@@ -52,6 +58,17 @@ class DataManager: PostDataProtocol  {
         addOperationQueue.addOperation {
             self.addPostSync(postModel: postModel)
             completionBlock(true)
+        }
+    }
+    
+    func getAllPostsSync() -> [PostModel] {
+        return postsArray
+    }
+    
+    func getAllPostsAsync(completionBlock: @escaping ([PostModel]) -> Void) {
+        getAllPostsOperationQueue.addOperation{ [weak self] in
+            guard let strongSelf = self else { return }
+            completionBlock(strongSelf.postsArray)
         }
     }
 }

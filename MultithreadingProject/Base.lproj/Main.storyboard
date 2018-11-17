@@ -176,7 +176,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YvI-wb-oZ6"/>
                     </view>
-                    <navigationItem key="navigationItem" id="xhP-Aa-Gsu"/>
+                    <navigationItem key="navigationItem" id="xhP-Aa-Gsu">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="BJz-x6-vIy">
+                            <connections>
+                                <action selector="addPost:" destination="9a2-l1-gZm" id="fib-cz-hoX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="View" destination="oHf-Us-Vid" id="XXf-uE-wRb"/>
                         <outlet property="tableView" destination="Vnn-bd-JLA" id="OZj-pi-Nqn"/>

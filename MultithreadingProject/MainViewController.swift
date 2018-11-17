@@ -12,7 +12,9 @@ import UIKit
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    let dataManager = DataManager.sharedInstance
     
+
     /// Идентификатор ячейки
     fileprivate let cellIdentifier = "cell"
     
@@ -42,6 +44,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
+    @IBAction func addPost(_ sender: Any) {
+        dataManager.addPostAsync(postModel: PostModel(id: dataManager.postsArray.count + 1, authorAvatar: #imageLiteral(resourceName: "iv1"), postImage: #imageLiteral(resourceName: "iv2"), authorName: "Timur Badretdinov", postDate: "02.04.1998", postText: "Although these classes actually can support the display of arbitrary amounts of text, labels and text fields are intended to be used for relatively small amounts of text, typically a single line. Text views, on the other hand, are meant to display large amounts of text."), completionBlock: { (isSuccess)  in
+            if !isSuccess {
+                print("Assync adding failed")
+            }
+        })
+    }
+    
+    
     // MARK: - Refreshing
     /// обаботчик свайпа таблицы
     lazy var refreshControl: UIRefreshControl = {
@@ -53,14 +64,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         return refreshControl
     }()
-    
+
     /// метод вызывающийся при свайпе таблицы
     ///
     /// - Parameter refreshControl: UIRefreshControl
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        self.tableView.reloadData()
-        showToast(message: "Обновлено!")
-        refreshControl.endRefreshing()
+        dataManager.getAllPostsAsync { (posts) in
+            self.postsArray = posts
+            self.tableView.reloadData()
+            refreshControl.endRefreshing()
+        }
     }
     
     /// Отображение сообщения

@@ -69,10 +69,10 @@
 			isa = PBXGroup;
 			children = (
 				CECCACE921A033130009706F /* CustomTableViewCell.swift */,
-				CECCACFB21A073F00009706F /* PostModel.swift */,
 				CECCACE821A033130009706F /* MainViewController.swift */,
 				CECCACEB21A033140009706F /* PostViewController.swift */,
 				CECCACE721A033130009706F /* ShareViewController.swift */,
+				CECCACFB21A073F00009706F /* PostModel.swift */,
 				7C7420EB217F0F8200F9B608 /* AppDelegate.swift */,
 				7C7420EF217F0F8200F9B608 /* Main.storyboard */,
 				CECCACF521A06DB00009706F /* DataManager.swift */,

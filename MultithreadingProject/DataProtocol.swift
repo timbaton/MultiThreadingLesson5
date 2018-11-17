@@ -14,4 +14,7 @@ protocol PostDataProtocol {
     
     func addPostSync(postModel: PostModel)
     func addPostAsync(postModel: PostModel, completionBlock: @escaping (Bool) -> Void)
+    
+    func getAllPostsSync() -> [PostModel]
+    func getAllPostsAsync(completionBlock: @escaping ([PostModel]) -> Void) -> Void
 }
