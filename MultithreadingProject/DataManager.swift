@@ -32,25 +32,25 @@ class DataManager: PostDataProtocol  {
         return queue
     }()
 
-    func syncSearchModel(by id: Int) -> PostModel? {
+    func getPostSync(by id: Int) -> PostModel? {
         postsArray = postsArray.filter{ post in post.id == id}
         return postsArray.first
     }
     
-    func asyncSearchModel(by id: Int, completionBlock: @escaping (PostModel?) -> Void) {
+    func getPostAsync(by id: Int, completionBlock: @escaping (PostModel?) -> Void) {
         searchOperationQueue.addOperation{ [weak self] in
             guard let strongSelf = self else { return }
             completionBlock(strongSelf.postsArray.filter{ model in model.id == id}.first)
         }
     }
     
-    func addModelSync(postModel: PostModel) {
+    func addPostSync(postModel: PostModel) {
         postsArray.append(postModel)
     }
     
-    func addModelAsync(postModel: PostModel, completionBlock: @escaping (Bool) -> Void) {
+    func addPostAsync(postModel: PostModel, completionBlock: @escaping (Bool) -> Void) {
         addOperationQueue.addOperation {
-            self.addModelSync(postModel: postModel)
+            self.addPostSync(postModel: postModel)
             completionBlock(true)
         }
     }

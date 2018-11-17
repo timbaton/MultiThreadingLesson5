@@ -9,9 +9,9 @@
 import UIKit
 
 protocol PostDataProtocol {
-    func syncSearchModel(by id: Int) -> PostModel?
-    func asyncSearchModel(by id: Int, completionBlock: @escaping (PostModel?) -> Void)
+    func getPostSync(by id: Int) -> PostModel?
+    func getPostAsync(by id: Int, completionBlock: @escaping (PostModel?) -> Void)
     
-    func addModelSync(postModel: PostModel)
-    func addModelAsync(postModel: PostModel, completionBlock: @escaping (Bool) -> Void)
+    func addPostSync(postModel: PostModel)
+    func addPostAsync(postModel: PostModel, completionBlock: @escaping (Bool) -> Void)
 }

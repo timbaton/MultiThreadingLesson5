@@ -12,11 +12,15 @@ class PostViewController: UIViewController {
 
     @IBOutlet weak var ivPostImage: UIImageView!
     @IBOutlet weak var tvPostText: UILabel!
+    
+    let dataManager = DataManager.sharedInstance
+    var postId: Int!
     var post: PostModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        post = dataManager.getPostSync(by: postId)
         ivPostImage.image = post.postImage
         tvPostText.text = post.postText
     }

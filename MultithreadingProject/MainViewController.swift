@@ -105,12 +105,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailSegue", let post = sender as? PostModel {
             let destinationController = segue.destination as! PostViewController
-            destinationController.post = post
+            destinationController.postId = post.id
         }
         
         if segue.identifier == "shareSegue", let post = sender as? PostModel {
             let destinationController = segue.destination as! ShareViewController
-            destinationController.post = post
+            destinationController.postId = post.id
         }
     }
 }
