@@ -38,6 +38,7 @@ class DataManager: PostDataProtocol  {
         return queue
     }()
 
+    // MARK: - Realization of methods
     func getPostSync(by id: Int) -> PostModel? {
         postsArray = postsArray.filter{ post in post.id == id}
         return postsArray.first

@@ -69,10 +69,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     ///
     /// - Parameter refreshControl: UIRefreshControl
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        dataManager.getAllPostsAsync { (posts) in
+        dataManager.getAllPostsAsync { (posts)  in
             self.postsArray = posts
-            self.tableView.reloadData()
+            DispatchQueue.main.async { [unowned self] in
+                self.tableView.reloadData() // не получилось починить предупреждение((
+            }
             refreshControl.endRefreshing()
+            self.showToast(message: "Обновлено!")
         }
     }
     
